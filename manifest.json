@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "NASA APOD Viewer",
+    "version": "1.0",
+    "description": "View the Astronomy Picture of the Day from NASA.",
+    "permissions": ["storage"],
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icons/nasa16.png",
+        "48": "icons/nasa32.png",
+        "128": "icons/nasa128.png"
+      }
+    },
+    "icons": {
+      "16": "icons/nasa16.png",
+      "48": "icons/nasa32.png",
+      "128": "icons/nasa128.png"
+    }
+  }
+  
