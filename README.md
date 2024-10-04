@@ -4,7 +4,7 @@
 The **NASA APOD Chrome Extension** displays NASA's "Astronomy Picture of the Day" (APOD) directly in your browser.
 
 ## Screenshot
-![NASA APOD Extension Screenshot](screenshot.png)
+![NASA APOD Extension Screenshot](Screenshot.png)
 *The NASA APOD Chrome Extension displaying today's astronomy picture.*
 
 ## Configuration
