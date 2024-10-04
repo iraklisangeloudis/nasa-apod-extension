@@ -3,6 +3,10 @@
 ## Overview
 The **NASA APOD Chrome Extension** displays NASA's "Astronomy Picture of the Day" (APOD) directly in your browser.
 
+## Screenshot
+![NASA APOD Extension Screenshot](screenshot.png)
+*The NASA APOD Chrome Extension displaying today's astronomy picture.*
+
 ## Configuration
 * **API Key**: The NASA APOD API requires an API key for usage. You can obtain your own key from [NASA's API Portal](https://api.nasa.gov/). Once obtained, add it to the `config.js` file as shown in the **Installation** section.
 
