@@ -2,6 +2,8 @@
 
 An unofficial Chrome extension displaying NASA’s latest APOD with its explanation, credits, and source link.
 
+https://github.com/user-attachments/assets/4d60ed2f-2a93-43fd-8e2d-39e897f45e59
+
 ## Features
 
 - Uses `https://science.nasa.gov/wp-json/wp/v2/apod-basic?per_page=1`.
