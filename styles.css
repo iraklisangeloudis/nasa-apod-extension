@@ -1,61 +1,64 @@
-/* General Body Styling */
-body {
-    font-family: 'Roboto', sans-serif;
-    padding: 20px;
-    text-align: center;
-    background-color: #f0f4f8;  /* Light gray-blue for a soft background */
-    color: #2e3b4e;  /* Dark gray-blue text for better readability */
-    width: 400px;  /* Keep the width at 400px */
-    border-radius: 10px; /* Soft rounded corners for the popup */
+:root {
+  color-scheme: light;
+  --background: #eef2f7;
+  --surface: #ffffff;
+  --text: #1b2b40;
+  --muted: #50627a;
+  --accent: #155da8;
+  --border: #cad5e3;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --background: #101722;
+    --surface: #1a2534;
+    --text: #edf3fb;
+    --muted: #b4c2d5;
+    --accent: #91c6ff;
+    --border: #3c4c62;
   }
-  
-  /* Title Styling */
-  h1 {
-    font-size: 20px;
-    color: #1f4b77;  /* A deeper blue for the title to stand out */
-    margin-bottom: 15px;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);  /* Subtle shadow for the title */
-  }
-  
-  /* APOD Image Styling */
-  #apod-image {
-    width: 100%;  /* Image will scale to fit the popup width */
-    height: auto;  /* Maintain aspect ratio */
-    border-radius: 10px;  /* Rounded corners for the image */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Add a soft shadow under the image */
-    margin-bottom: 15px;
-  }
-  
-  /* Paragraph and Text Styling */
-  p {
-    margin: 8px 0;
-    font-size: 14px;
-    line-height: 1.6;  /* Better line spacing for readability */
-    color: #3d4857;  /* Slightly lighter gray-blue for paragraph text */
-  }
-  
-  /* Copyright Styling */
-  small {
-    display: block;
-    font-size: 12px;
-    color: #6c757d;  /* Subtle gray color for copyright info */
-    margin-top: 10px;
-  }
-  
-  /* Container Styling */
-  #apod-content {
-    max-width: 100%;
-    background-color: #ffffff;  /* Keep the content area white */
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  /* Soft shadow around content box */
-  }
-  
-  /* Add a Hover Effect for the Image */
-  #apod-image:hover {
-    transform: scale(1.05);  /* Slightly enlarge the image on hover */
-    transition: transform 0.3s ease;
-  }
-  
-  
-  
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #101722;
+  --surface: #1a2534;
+  --text: #edf3fb;
+  --muted: #b4c2d5;
+  --accent: #91c6ff;
+  --border: #3c4c62;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { width: 420px; margin: 0; padding: 20px; font: 14px/1.65 system-ui, sans-serif; background: var(--background); color: var(--text); }
+header { margin-bottom: 18px; }
+h1 { font-size: 23px; line-height: 1.25; margin: 4px 0 14px; }
+h2 { font-size: 20px; line-height: 1.35; margin: 4px 0 14px; }
+p { margin: 8px 0; }
+.eyebrow { color: var(--muted); font-size: 12px; letter-spacing: .04em; }
+button { border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px; background: var(--surface); color: var(--text); font: inherit; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+#theme-toggle { display: inline-flex; align-items: center; gap: 8px; }
+.theme-icon { display: none; width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+#theme-toggle[data-mode="system"] .icon-system,
+#theme-toggle[data-mode="light"] .icon-light,
+#theme-toggle[data-mode="dark"] .icon-dark { display: block; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+a { color: var(--accent); overflow-wrap: anywhere; }
+#apod-content { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+#apod-media { background: var(--background); }
+#apod-media img, #apod-media video, #apod-media iframe { display: block; width: 100%; border: 0; }
+#apod-media > a { display: block; overflow: hidden; }
+#apod-media img { height: auto; transition: transform 0.3s ease; }
+#apod-media img:hover { transform: scale(1.05); }
+@media (prefers-reduced-motion: reduce) {
+  #apod-media img { transition: none; }
+  #apod-media img:hover { transform: none; }
+}
+#apod-media video, #apod-media iframe { aspect-ratio: 16 / 9; }
+#apod-media p { padding: 16px; }
+.details { padding: 16px; }
+#apod-description { overflow-wrap: anywhere; }
+.credit { margin: 18px 0 12px; font-size: 12px; color: var(--muted); }
+#status, footer { color: var(--muted); font-size: 12px; }
+#status:empty { display: none; }
+footer { margin-top: 16px; }
