@@ -1,0 +1,35 @@
+name: Extension checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Tests and syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: node --check popup.js
+      - name: Run extension tests
+        run: node --test popup.test.cjs
+      - name: Validate manifest and packaged assets
+        run: |
+          node <<'JS'
+          const fs = require('node:fs');
+          const assert = require('node:assert/strict');
+          const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
+          assert.equal(manifest.manifest_version, 3);
+          for (const file of [manifest.action.default_popup, ...Object.values(manifest.icons), ...Object.values(manifest.action.default_icon), 'popup.js', 'styles.css']) {
+            assert.ok(fs.existsSync(file), `Missing extension asset: ${file}`);
+          }
+          console.log('Manifest and extension assets are valid.');
+          JS
