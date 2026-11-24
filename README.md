@@ -1,6 +1,8 @@
 # Astronomy Picture of the Day Viewer
 
-An unofficial Chrome extension displaying NASA’s latest APOD with its explanation, credits, and source link.
+An unofficial extension displaying NASA’s latest APOD with its explanation, credits, and source link.
+
+**For Chromium-based browsers.**
 
 https://github.com/user-attachments/assets/4d60ed2f-2a93-43fd-8e2d-39e897f45e59
 
@@ -15,9 +17,9 @@ https://github.com/user-attachments/assets/4d60ed2f-2a93-43fd-8e2d-39e897f45e59
 ## Install locally
 
 1. Download or clone this repository.
-2. Open `chrome://extensions` and enable **Developer mode**.
+2. Open your browser’s extensions page (for example, `chrome://extensions` or `edge://extensions`) and enable **Developer mode**.
 3. Select **Load unpacked** and choose this folder.
-4. Open the extension from Chrome’s toolbar. After updating the files, click **Reload** on its extension card.
+4. Open the extension from your browser’s toolbar. After updating the files, click **Reload** on its extension card.
 
 ## Permissions and data
 
