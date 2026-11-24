@@ -4,7 +4,9 @@ const CACHE_DURATION = 5 * 60 * 1000;
 
 function safeUrl(value) {
   try {
-    const url = new URL(value);
+    if (typeof value !== 'string' || !value.trim()) return null;
+    const input = value.trim();
+    const url = new URL(input.startsWith('//') ? `https:${input}` : input);
     return url.protocol === 'https:' ? url.href : null;
   } catch { return null; }
 }
@@ -127,6 +129,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       image.addEventListener('error', fallback, { once: true });
       link.append(image);
       container.append(link);
+    } else if (media.type === 'embed' && new URL(media.url).hostname === 'www.youtube-nocookie.com') {
+      const id = new URL(media.url).pathname.split('/')[2];
+      const watch = document.createElement('a');
+      watch.className = 'watch-video';
+      watch.textContent = 'Watch on YouTube ↗';
+      watch.href = `https://www.youtube.com/watch?v=${id}`;
+      watch.target = '_blank';
+      watch.rel = 'noopener noreferrer';
+      container.append(watch);
     } else {
       const player = document.createElement(media.type === 'video' ? 'video' : 'iframe');
       if (media.type === 'video') {

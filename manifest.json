@@ -6,7 +6,7 @@
     "permissions": ["storage"],
     "host_permissions": ["https://science.nasa.gov/*"],
     "content_security_policy": {
-      "extension_pages": "script-src 'self'; object-src 'none'; frame-src https://www.youtube-nocookie.com https://player.vimeo.com;"
+      "extension_pages": "script-src 'self'; object-src 'none'; frame-src https://player.vimeo.com;"
     },
     "action": {
       "default_popup": "popup.html",

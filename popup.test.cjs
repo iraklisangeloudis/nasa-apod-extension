@@ -43,6 +43,27 @@ function setup({ cache, result, failure, dark = false, savedTheme } = {}) {
 }
 const entry = { title: 'A planet', date: '2026-11-22', explanation: 'Details', media_type: 'image', hdurl: 'https://example.org/image.jpg' };
 
+test('YouTube entries show only a watch link without a hosted player', async () => {
+  const app = setup({ result: [{ ...entry, media_type: 'video', url: 'https://youtu.be/uCbpHh_rTgc' }] });
+  await app.ready();
+  const media = app.elements.get('apod-media').childNodes;
+  assert.equal(media.length, 1);
+  assert.equal(media[0].tag, 'a');
+  assert.equal(media[0].href, 'https://www.youtube.com/watch?v=uCbpHh_rTgc');
+  assert.equal(media[0].target, '_blank');
+});
+
+test('direct videos retain native controls and Vimeo retains its embedded player', async () => {
+  for (const [url, tag] of [['https://example.org/movie.mp4', 'video'], ['https://vimeo.com/123456', 'iframe']]) {
+    const app = setup({ result: [{ ...entry, hdurl: null, media_type: 'video', url }] });
+    await app.ready();
+    const player = app.elements.get('apod-media').childNodes[0];
+    assert.equal(player.tag, tag);
+    if (tag === 'video') assert.equal(player.controls, true);
+    else assert.equal(player.src, 'https://player.vimeo.com/video/123456');
+  }
+});
+
 test('fetches new list API, renders image and saves versioned cache', async () => {
   const app = setup({ result: [entry] });
   await app.ready();
@@ -99,4 +120,20 @@ test('selects GIF, direct video, supported embeds, and rejects unsafe URLs', () 
   assert.equal(c.embedUrl('https://youtube.com.evil.org/embed/abcdefghijk'), null);
   assert.equal(c.safeUrl('javascript:alert(1)'), null);
   assert.equal(c.mediaFor({ media_type: 'iframe', url: 'https://unknown.org' }).url, undefined);
+});
+
+test('recognizes both live NASA demo iframe URLs without a protocol', () => {
+  const { context: c } = setup();
+  for (const id of ['uCbpHh_rTgc', 'ExGvwNuKyMc']) {
+    const src = `//www.youtube.com/embed/${id}?rel=0`;
+    assert.equal(c.embedUrl(src), `https://www.youtube-nocookie.com/embed/${id}`);
+    c.parseHTML = () => ({
+      querySelector() { return null; },
+      querySelectorAll() { return [{ getAttribute: () => src }]; },
+    });
+    assert.equal(c.mediaFor({ media_type: 'video' }).url, `https://www.youtube-nocookie.com/embed/${id}`);
+  }
+  assert.equal(c.safeUrl(undefined), null);
+  assert.equal(c.safeUrl(''), null);
+  assert.equal(c.embedUrl('//youtube.com.evil.org/embed/uCbpHh_rTgc'), null);
 });
